@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tea Shop Billing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Tea Shop Billing</p>
+        <h1>Fresh snacks, hot drinks, and fast billing in one screen.</h1>
+        <p class="hero-text">
+          Click any menu item to add it to the bill instantly. Manage the menu, print bills,
+          clear the cart, accept QR payments, and track monthly sales.
+        </p>
+        <div class="hero-tags">
+          <span>HTML</span>
+          <span>CSS</span>
+          <span>JavaScript</span>
+          <span>Local Storage</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h2>Today's Quick View</h2>
+        <div class="hero-stats">
+          <article>
+            <span id="todayOrders">0</span>
+            <p>Orders</p>
+          </article>
+          <article>
+            <span id="todayRevenue">Rs. 0</span>
+            <p>Revenue</p>
+          </article>
+          <article>
+            <span id="menuCount">0</span>
+            <p>Menu Items</p>
+          </article>
+        </div>
+      </div>
+    </header>
+
+    <main class="dashboard">
+      <section class="panel menu-panel">
+        <div class="panel-head">
+          <div>
+            <p class="section-label">Order Menu</p>
+            <h2>Click to add items</h2>
+          </div>
+          <input id="menuSearch" class="search-input" type="search" placeholder="Search menu item">
+        </div>
+        <div id="menuGrid" class="menu-grid"></div>
+      </section>
+
+      <aside class="panel billing-panel">
+        <div class="panel-head compact">
+          <div>
+            <p class="section-label">Live Bill</p>
+            <h2>Cart & Bill</h2>
+          </div>
+          <span id="billDate" class="badge"></span>
+        </div>
+
+        <div id="emptyCartState" class="empty-cart">
+          <h3>No items yet</h3>
+          <p>Select food or drinks from the menu to start billing.</p>
+        </div>
+
+        <div id="cartItems" class="cart-items"></div>
+
+        <div class="bill-summary">
+          <div class="summary-line">
+            <span>Items</span>
+            <strong id="totalQuantity">0</strong>
+          </div>
+          <div class="summary-line">
+            <span>Subtotal</span>
+            <strong id="subtotalAmount">Rs. 0</strong>
+          </div>
+          <div class="summary-line total">
+            <span>Total</span>
+            <strong id="totalAmount">Rs. 0</strong>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button id="clearCartBtn" class="btn btn-muted" type="button">Clear Cart</button>
+          <button id="printBillBtn" class="btn btn-outline" type="button">Print Bill</button>
+          <button id="payNowBtn" class="btn btn-primary" type="button">Pay Now</button>
+        </div>
+
+        <section id="printableBill" class="print-bill">
+          <div class="print-header">
+            <h3>Tea Shop Bill</h3>
+            <p id="printTimestamp"></p>
+          </div>
+          <div id="printBillItems" class="print-items"></div>
+          <div class="print-total">
+            <span>Total</span>
+            <strong id="printTotalAmount">Rs. 0</strong>
+          </div>
+        </section>
+      </aside>
+
+      <section class="panel report-panel">
+        <div class="panel-head">
+          <div>
+            <p class="section-label">Monthly Sales</p>
+            <h2>Sales report</h2>
+          </div>
+          <input id="reportMonth" class="month-input" type="month">
+        </div>
+
+        <div class="report-cards">
+          <article>
+            <span id="reportRevenue">Rs. 0</span>
+            <p>Total Revenue</p>
+          </article>
+          <article>
+            <span id="reportOrders">0</span>
+            <p>Total Orders</p>
+          </article>
+          <article>
+            <span id="reportItemsSold">0</span>
+            <p>Items Sold</p>
+          </article>
+          <article>
+            <span id="topSellingItem">-</span>
+            <p>Top Selling Item</p>
+          </article>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Items</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody id="salesTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel manage-panel">
+        <div class="panel-head">
+          <div>
+            <p class="section-label">Manage Menu</p>
+            <h2>CRUD operations</h2>
+          </div>
+        </div>
+
+        <form id="menuForm" class="menu-form">
+          <input id="itemId" type="hidden">
+          <label>
+            Item Name
+            <input id="itemName" type="text" placeholder="Enter item name" required>
+          </label>
+          <label>
+            Price
+            <input id="itemPrice" type="number" min="1" step="1" placeholder="Enter price" required>
+          </label>
+          <label>
+            Category
+            <select id="itemCategory" required>
+              <option value="Snack">Snack</option>
+              <option value="Drink">Drink</option>
+            </select>
+          </label>
+          <label>
+            Image URL (optional)
+            <input id="itemImage" type="text" placeholder="assets/tea.svg or https://...">
+          </label>
+          <div class="form-actions">
+            <button id="saveItemBtn" class="btn btn-primary" type="submit">Add Item</button>
+            <button id="resetFormBtn" class="btn btn-muted" type="button">Reset</button>
+          </div>
+        </form>
+
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="manageMenuBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="credits-panel">
+      <div class="panel-head">
+        <div>
+          <p class="section-label">Image Credits</p>
+          <h2>Open-source photos</h2>
+        </div>
+      </div>
+      <div id="imageCredits" class="credits-list"></div>
+    </footer>
+  </div>
+
+  <div id="paymentModal" class="modal hidden">
+    <div class="modal-card">
+      <button id="closeModalBtn" class="modal-close" type="button" aria-label="Close">&times;</button>
+      <p class="section-label">QR Payment</p>
+      <h2>Scan and pay</h2>
+      <p id="paymentAmountText" class="payment-copy">Pay Rs. 0 to complete this bill.</p>
+      <img id="qrImage" class="qr-image" src="assets/payment-qr-fallback.svg" alt="QR code for payment">
+      <p class="qr-note">If live QR is unavailable, the demo QR image will be shown as fallback.</p>
+      <div class="action-row modal-actions">
+        <button id="confirmPaymentBtn" class="btn btn-primary" type="button">Confirm Payment</button>
+      </div>
+    </div>
+  </div>
+
+  <template id="menuCardTemplate">
+    <article class="menu-card">
+      <img class="menu-card-image" src="" alt="">
+      <div class="menu-card-body">
+        <div class="menu-card-top">
+          <span class="item-category"></span>
+          <strong class="item-price"></strong>
+        </div>
+        <h3 class="item-name"></h3>
+        <button class="btn btn-primary add-item-btn" type="button">Add to Bill</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
