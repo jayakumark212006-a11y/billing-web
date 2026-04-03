@@ -1,2 +1,0 @@
-# billing-web
-tea shop
