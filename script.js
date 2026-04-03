@@ -18,7 +18,7 @@ const openSourceImages = {
   "Methu Vada": "https://commons.wikimedia.org/wiki/Special:FilePath/Medu%20vada2.jpg",
   "Paruppu Vada": "https://commons.wikimedia.org/wiki/Special:FilePath/Paripu%20vada.jpg",
   Tea: "https://commons.wikimedia.org/wiki/Special:FilePath/Masala%20tea.jpg",
-  Coffee: "https://commons.wikimedia.org/wiki/Special:FilePath/Coffee%20Cup%20%281969787621%29.jpg",
+  Coffee: "https://www.istockphoto.com/photos/beautiful-coffee-cup",
   "Butter Milk": "https://commons.wikimedia.org/wiki/Special:FilePath/Drinking%20buttermilk.jpg",
   "Lemon Juice": "https://commons.wikimedia.org/wiki/Special:FilePath/Lemon%20juice.jpg"
 };
